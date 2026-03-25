@@ -89,21 +89,15 @@ col_pred, col_prob = st.columns(2)
 
 with col_pred:
     if st.button("Predict"):
-         result = model.predict(input_df)
-         prob = model.predict_proba(input_df)
+       result = model.predict(input_df)
+       prob= model.predict_proba(input_df) 
+       if result[0] == 1:
+        st.success("Passenger survived ✅")
+       else:
+        st.error("Passenger did not survive ❌")
 
-    
+        st.session_state['prob']= prob
 
-        if result[0] == 1:
-                  st.success("Survived ✅")
-
-        
-    
-    else:
-        
-        st.error("Did Not Survive ❌")
-
-    st.session_state['prob'] = prob
 
 with col_pred:  
         if 'prob' in st.session_state:
